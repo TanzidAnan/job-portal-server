@@ -34,7 +34,8 @@ async function run() {
 
     // jobs collection
 
-    const jobCollections =client.db('job-portal-1').collection('jobs')
+    const jobCollections =client.db('job-portal-1').collection('jobs');
+    const jobApplicatinCollection =client.db('job-portal-1').collection('job-application')
 
     app.get('/jobs',async(req,res ) =>{
         const cursor =jobCollections.find();
@@ -47,6 +48,14 @@ async function run() {
       const result = await jobCollections.findOne(query);
       res.send(result)
     })
+
+
+    app.post('/job-application',async(req,res) =>{
+      const application =req.body;
+      const result = await jobApplicatinCollection.insertOne(application);
+      res.send(result)
+    })
+
 
   } finally {
     // Ensures that the client will close when you finish/error
