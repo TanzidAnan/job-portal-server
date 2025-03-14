@@ -49,6 +49,12 @@ async function run() {
       res.send(result)
     })
 
+    app.get('/job-application',async(req,res) =>{
+      const email =req.query.email;
+      const query ={applicant_email:email};
+      const result =await jobApplicatinCollection.find(query).toArray();
+      res.send(result)
+    })
 
     app.post('/job-application',async(req,res) =>{
       const application =req.body;
