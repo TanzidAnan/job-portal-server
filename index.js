@@ -61,6 +61,7 @@ async function run() {
         if (job) {
           application.title = job.title;
           application.company = job.company;
+          application.location = job.location;
           application.company_logo = job.company_logo
         }
       }
@@ -68,9 +69,22 @@ async function run() {
 
     })
 
+    app.get('/job-application/:id', async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) }
+      const result = await jobApplicatinCollection.findOne(query);
+      res.send(result)
+    })
+  
     app.post('/job-application', async (req, res) => {
       const application = req.body;
       const result = await jobApplicatinCollection.insertOne(application);
+      res.send(result)
+    })
+    app.delete('/job-application/:id', async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) }
+      const result =await jobApplicatinCollection.deleteOne(query);
       res.send(result)
     })
 
