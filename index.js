@@ -128,7 +128,15 @@ async function run() {
 
     app.patch('/job-application/:id', async (req, res) => {
       const id = req.params.id;
+      const data =req.body;
       const filter = { _id: new ObjectId(id) }
+      const updateDoc ={
+        $set:{
+          status:data.status
+        }
+      }
+      const result =await jobApplicatinCollection.updateOne(filter,updateDoc);
+      res.send(result)
     })
 
     app.delete('/job-application/:id', async (req, res) => {
