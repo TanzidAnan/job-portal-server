@@ -68,7 +68,7 @@ async function run() {
     app.get('/job-application/jobs/:job_id', async (req, res) => {
       const jobId = req.params.job_id;
       const query = { job_id: jobId };
-      const result =await jobApplicatinCollection.find(query).toArray();
+      const result = await jobApplicatinCollection.find(query).toArray();
       res.send(result)
     })
 
@@ -125,6 +125,12 @@ async function run() {
       res.send(result)
 
     })
+
+    app.patch('/job-application/:id', async (req, res) => {
+      const id = req.params.id;
+      const filter = { _id: new ObjectId(id) }
+    })
+
     app.delete('/job-application/:id', async (req, res) => {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) }
