@@ -45,14 +45,14 @@ async function run() {
 
     app.post('/jwt',async(req,res) =>{
       const user =req.body;
-      const token =jwt.sign(user,process.env.JWT_SECRET,{expiresIn:'1r'});
+      const token =jwt.sign(user,process.env.JWT_SECRET,{expiresIn:'1hr'});
       res
       .cookie('token',token,{
         httpOnly:true,
-        secure:false,
-        // http://localhost:5173/signin
+        secure:false, // http://localhost:5173/signin
       })
       .send({success:true})
+      console.log(token)
     })
 
     app.get('/jobs', async (req, res) => {
