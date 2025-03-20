@@ -19,7 +19,21 @@ const logger =(req,res,next) =>{
   console.log('insate user loger');
   next()
 }
+const varifyToken =(req,res,next) =>{
+  const token =req.cookies?.token;
+  if(!token){
+    return req.status(401).send({message:'Unauthorized access'})
+  }
 
+  jwt.verify(token,process.env.JWT_SECRET,(err,decoded)=>{
+    if(err){
+      return res.send(401).send({message:'Authorage Access'})
+    }
+    next()
+  })
+
+
+}
 
 // db_user=job-hunter-1
 // db pass =RUhPIlPcSJBOY2pN
@@ -62,7 +76,7 @@ async function run() {
       console.log(token)
     })
 
-    app.get('/jobs', async (req, res) => {
+    app.get('/jobs',logger, async (req, res) => {
 
       const email = req.query.email;
       let query = {};
