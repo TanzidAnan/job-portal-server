@@ -14,6 +14,13 @@ app.use(express.json());
 app.use(cookieParser())
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 
+
+const logger =(req,res,next) =>{
+  console.log('insate user loger');
+  next()
+}
+
+
 // db_user=job-hunter-1
 // db pass =RUhPIlPcSJBOY2pN
 
