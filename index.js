@@ -27,8 +27,9 @@ const varifyToken =(req,res,next) =>{
 
   jwt.verify(token,process.env.JWT_SECRET,(err,decoded)=>{
     if(err){
-      return res.send(401).send({message:'Authorage Access'})
+      return res.status(401).send({message:'Authorage Access'})
     }
+    req.user=decoded
     next()
   })
 
@@ -111,7 +112,7 @@ async function run() {
       res.send(result)
     })
 
-    app.get('/job-application', async (req, res) => {
+    app.get('/job-application',varifyToken, async (req, res) => {
       const email = req.query.email;
       const query = { applicant_email: email };
       const result = await jobApplicatinCollection.find(query).toArray();
