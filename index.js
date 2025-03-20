@@ -95,6 +95,8 @@ async function run() {
       const query = { applicant_email: email };
       const result = await jobApplicatinCollection.find(query).toArray();
 
+      console.log('cookis data',req.cookies)
+
       for (application of result) {
         console.log(application.job_id);
         const query1 = { _id: new ObjectId(application.job_id) }
