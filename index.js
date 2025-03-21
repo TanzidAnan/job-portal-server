@@ -117,6 +117,10 @@ async function run() {
       const query = { applicant_email: email };
       const result = await jobApplicatinCollection.find(query).toArray();
 
+      if(req.user.email !== req.query.email){
+        // return res.status(404).send({message:'forbenden'})
+      }
+
       console.log('cookis data',req.cookies)
 
       for (application of result) {
